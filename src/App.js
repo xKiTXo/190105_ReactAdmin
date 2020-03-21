@@ -1,5 +1,11 @@
 import React ,{Component}from 'react'
-import {Button,message} from 'antd'
+import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom'
+import {message} from 'antd'
+
+
+import Login from './pages/login/login'
+import Admin from './pages/admin/admin'
+
 
 export default class App extends Component{
     handleClick=()=>{
@@ -9,8 +15,13 @@ export default class App extends Component{
     render(){
         return(
         <>
-            <div>Appsdsd</div>
-            <Button type="primary" onClick={this.handleClick}>ADD</Button>
+            <Router>
+                
+                <Switch>
+                    <Route path='/login/' component={Login}/>
+                    <Route path='/' exact component={Admin}/>
+                </Switch>
+            </Router>
         </>
         )
     }
