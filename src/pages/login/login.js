@@ -5,16 +5,21 @@ import {UserOutlined,LockOutlined  } from '@ant-design/icons';
 import './login.less'
 import logo from './images/logo.png'
 
-const Item =Form.Item;
+const Item = Form.Item;
+
 
 
 class Login extends Component{
 
-    onFinish=(event)=>{
-        console.log(event);
-    }
+   
 
+    onFinish=(event)=>{
+        console.log('onFinish',event);
+    }
+    
+    
     render(){
+        
         return(
             <div className="login">
 
@@ -25,14 +30,14 @@ class Login extends Component{
 
                 <section className='login-content'>
                     <h2>用戶登錄</h2>
-                    <Form onFinish={this.onFinish} className="login-form" name="basic">
+                    <Form fields={fields} onFinish={this.onFinish} className="login-form" name="basic">
                         <Item
                             name="username"
                             rules={[
                                 {required: true,message: 'Please input your username!',},
                             ]}
                         >
-                            <Input  placeholder='用戶名' prefix={<UserOutlined/>}/>
+                            <Input onChange={(e)=>{this.setState({btn:e.target.value})}} placeholder='用戶名' prefix={<UserOutlined/>}/>
                         </Item>
 
                         <Form.Item
@@ -45,7 +50,7 @@ class Login extends Component{
                         </Form.Item>
 
                         <Form.Item >
-                            <Button className="login-form-button" type="primary" htmlType="submit">登錄</Button>
+                            <Button className="login-form-button" type="primary" htmlType="submit">{this.state.btn}</Button>
                         </Form.Item>
                     </Form>
                 </section>
