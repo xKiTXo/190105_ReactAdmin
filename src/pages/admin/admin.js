@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import memoryUtils from '../../utils/memoryUtils'
-import { Redirect } from 'react-router-dom';
 
-const { Header, Footer, Sider, Content } = Layout;
+import LeftNav from '../../components/left-nav'
+import Header from '../../components/header'
+
+const { Footer, Sider, Content } = Layout;
 
 class Admin extends Component{
 
@@ -16,12 +19,14 @@ class Admin extends Component{
         }
 
         return(
-            <Layout>
-                <Sider>Sider</Sider>
+            <Layout style={{height:'100%'}}>
+                <Sider>
+                    <LeftNav/>
+                </Sider>
                 <Layout>
-                    <Header>Header</Header>
-                    <Content>Content</Content>
-                    <Footer>Footer</Footer>
+                    <Header/>
+                    <Content style={{backgroundColor:'#fff'}}>Content</Content>
+                    <Footer style={{textAlign:'center',color:'#cccccc'}}>推薦使用谷歌瀏覽器, 可以獲得更佳頁面操作體驗</Footer>
                 </Layout>
             </Layout>
         )

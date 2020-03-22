@@ -7,7 +7,7 @@ import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 
 import './login.less'
-import logo from './images/logo.png'
+import logo from '../../assets/images/logo.png'
 import { Redirect } from 'react-router-dom';
 
 
@@ -28,8 +28,11 @@ class Login extends Component{
             message.success('登入成功');
 
             const user =result.data;
+            
             memoryUtils.user = user;
+            
             storageUtils.saveUser(user);
+
             this.props.history.replace('/')
 
         }else{
