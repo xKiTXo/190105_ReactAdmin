@@ -15,7 +15,7 @@ import Product from '../product/product'
 import Role from '../role/role'
 import User from '../user/user'
 
-const { Footer, Sider, Content } = Layout;
+const {Footer, Sider, Content } = Layout;
 
 class Admin extends Component{
 
@@ -27,17 +27,16 @@ class Admin extends Component{
         }
 
         return(
-            
+            <>
             <Layout style={{height:'100%'}}>
                 <Sider>
                     <LeftNav/>
                 </Sider>
                 <Layout>
-                    {/* <Header/> */}
-                    <Header>Header</Header>
+                    <Header/> 
                     <Content  style={{backgroundColor:'#fff'}}>
                    
-                          <Switch>
+                        <Switch>
                             <Route path='/home' component={Home}/>
                             <Route path='/category' component={Category}/>
                             <Route path='/product' component={Product}/>
@@ -46,7 +45,7 @@ class Admin extends Component{
                             <Route path='/charts/bar' component={Bar}/>
                             <Route path='/charts/line' component={Line}/>
                             <Route path='/charts/pie' component={Pie}/>
-                            <Redirect to='/home/'/>
+                            <Redirect to='/home/'/> 
                         </Switch>    
                         
                         
@@ -54,7 +53,7 @@ class Admin extends Component{
                     <Footer style={{textAlign:'center',color:'#cccccc'}}>推薦使用谷歌瀏覽器, 可以獲得更佳頁面操作體驗</Footer>
                 </Layout>
             </Layout>
-            
+            </>
         )
     }
 }
