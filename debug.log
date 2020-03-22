@@ -28,3 +28,6 @@
 [0322/162838.455:ERROR:file_io_win.cc(179)] CreateFile C:\Users\Jerry\AppData\Local\Google\Chrome\User Data\Crashpad\settings.dat: 存取被拒。 (0x5)
 [0322/162838.463:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: 管道已結束。 (0x6D)
 [0322/162838.470:ERROR:file_io_win.cc(179)] CreateFile C:\Users\Jerry\AppData\Local\Google\Chrome\User Data\Crashpad\settings.dat: 存取被拒。 (0x5)
+[0322/191409.271:ERROR:file_io_win.cc(179)] CreateFile C:\Users\Jerry\AppData\Local\Google\Chrome\User Data\Crashpad\settings.dat: 存取被拒。 (0x5)
+[0322/191409.279:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: 管道已結束。 (0x6D)
+[0322/191409.286:ERROR:file_io_win.cc(179)] CreateFile C:\Users\Jerry\AppData\Local\Google\Chrome\User Data\Crashpad\settings.dat: 存取被拒。 (0x5)
