@@ -1,6 +1,10 @@
 import ajax from './ajax'
-import jsonp from 'jsonp'
-// const BASE ='http://localhost:5000';
+// import jsonp from 'jsonp'
+
+import {message } from 'antd'
+import axios from 'axios';
+
+
 const BASE ='';
 //Login
 export const reqLogin =(username,password)=>ajax(BASE+'/login',{username,password},'POST')
@@ -9,10 +13,31 @@ export const reqLogin =(username,password)=>ajax(BASE+'/login',{username,passwor
 export const reqAddUser=(user)=>ajax(BASE+'/manage/user/add',user,'POST')
 
 //jsonp 
-export const reqWeather =(city)=>{
-    const url =`http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=E4805d16520de693a3fe707cdc962045`
-    jsonp(url,{},(err,data)=>{
-        console.log('jsonp()',err,data);
-    })
+export const reqWeather =()=>{
+    
+        const cors = 'https://cors-anywhere.herokuapp.com/';
+        const url =cors+`http://t.weather.sojson.com/api/weather/city/101030100`
+
+        return new Promise((resolve,rejecy)=>{
+            axios.get(url).then((res)=>{
+
+                if(res && res.data.status===200){
+                    const {type,ymd} = res.data.data.forecast[0];
+                    //console.log(res.data.data.forecast)
+                    //console.log(type,ymd);
+                    resolve({type,ymd})
+                }else{
+                    message.error('獲取信息失敗')
+                }
+            })
+        })
+        
+                
+           
+              
+            
+        
+        
+    
 }
- reqWeather('北京')
+reqWeather()
