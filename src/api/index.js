@@ -22,10 +22,10 @@ export const reqWeather =()=>{
             axios.get(url).then((res)=>{
 
                 if(res && res.data.status===200){
-                    const {type,ymd} = res.data.data.forecast[0];
+                    const {type} = res.data.data.forecast[0];
                     //console.log(res.data.data.forecast)
                     //console.log(type,ymd);
-                    resolve({type,ymd})
+                    resolve({type})
                 }else{
                     message.error('獲取信息失敗')
                 }
