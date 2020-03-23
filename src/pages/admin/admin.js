@@ -47,7 +47,7 @@ class Admin extends Component{
                             <Route path='/charts/line' component={Line}/>
                             <Route path='/charts/pie' component={Pie}/>
                             <Route path='/order' component={Order}/>
-                            <Redirect to='/home/'/> 
+                            <Redirect to='/home'/> 
                         </Switch>    
                         
                         

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link ,withRouter} from 'react-router-dom'
 
 import { Menu } from 'antd';
 
@@ -10,19 +10,20 @@ import './index.less'
 
 const { SubMenu } = Menu;
 
-export default class LeftNav extends Component{
+class LeftNav extends Component{
 
     getMenuNodes_map=(menuList)=>{
         return (
             menuList.map((item)=>{
                 if(!item.children){
-                    return(<Menu.Item key={item.key}>
-                        <Link to={item.key}>
-                            <item.icon/>
-                            <span>{item.title}</span>
-                        </Link>
-                    </Menu.Item>)
-                    
+                    return(
+                        <Menu.Item key={item.key}>
+                            <Link to={item.key}>
+                                <item.icon/>
+                                <span>{item.title}</span>
+                            </Link>
+                        </Menu.Item>
+                    )  
                 }else{
                     return(
                         <SubMenu
@@ -40,16 +41,53 @@ export default class LeftNav extends Component{
             })
         )
     }     
-    getMenuNodes=()=>{
+    getMenuNodes=(menuList)=>{
+        const path =this.props.location.pathname;
         return(
-            menuList.reduce((pre)=>{
-                
+            menuList.reduce((pre,item)=>{
+                if(!item.children){
+                    pre.push((<Menu.Item key={item.key}>
+                        <Link to={item.key}>
+                            <item.icon/>
+                            <span>{item.title}</span>
+                        </Link>
+                    </Menu.Item>))
+                }else{
+
+                    const cItem = item.children.find(cItem =>cItem.key===path)
+                    
+                    if(cItem){
+                        this.openKey = item.key;
+                    }
+
+                    pre.push((<SubMenu
+                            key={item.key}
+                            title={
+                                <span>
+                                    <span>{item.title}</span>
+                                </span>
+                            }
+                        >
+                            {this.getMenuNodes(item.children)}
+                        </SubMenu>
+                    ))
+                }
                 return pre
             },[])
         )
     }
-            
+
+    componentWillMount(){
+        this.menuNodes = this.getMenuNodes(menuList);
+    }
+
     render(){
+        
+        const path =this.props.location.pathname;
+        console.log('render()',path)
+
+        const openKey = this.openKey;
+
         return(
             
             <div className='left-nav'>
@@ -59,9 +97,11 @@ export default class LeftNav extends Component{
                 </Link>
             
 
-                <Menu mode="inline" theme="dark">
+                <Menu 
+                    selectedKeys={[path]} defaultOpenKeys={[openKey]}
+                    mode="inline" theme="dark" >
                 {
-                    this.getMenuNodes(menuList)
+                   this.menuNodes
                 }
                 </Menu>  
                 
@@ -71,3 +111,4 @@ export default class LeftNav extends Component{
         )
     }
 }
+export default withRouter(LeftNav)
