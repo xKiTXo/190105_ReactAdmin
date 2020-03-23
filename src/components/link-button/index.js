@@ -1,16 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './index.less'
 
-class Home extends Component{
 
-    render(){
-        return(
-            
-            <div >
-                Home
-            </div>
-        )
-    }
+export const LinkButton =(props)=>{
+    return <button {...props} className='link-button'>{props.children}</button>
 }
-export default Home;

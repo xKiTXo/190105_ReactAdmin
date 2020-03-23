@@ -10,7 +10,7 @@ import menuList from '../../config/menuConfig'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import {formateDate} from '../../utils/dateUtils';
-
+import {LinkButton} from '../link-button'
 
 class Header extends Component{
 
@@ -80,7 +80,7 @@ class Header extends Component{
             <div className='header'>
                 <div className='header-top'>
                     <span>歡迎, {user}</span>
-                    <a href='javascrip:' onClick={this.logout}>退出</a>
+                    <LinkButton onClick={this.logout}>退出</LinkButton>
                 </div>
                 <div className='header-bottom'>
                     <div className='header-bottom-left'>{title}</div>
