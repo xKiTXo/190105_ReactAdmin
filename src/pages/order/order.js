@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Home extends Component{
+class Order extends Component{
 
     render(){
         return(
             
             <div >
-                Home
+                Order
             </div>
         )
     }
 }
-export default Home;
+export default Order;
