@@ -4,6 +4,8 @@ import {PlusOutlined,ArrowRightOutlined  } from '@ant-design/icons'
 import {LinkButton} from '../../components/link-button'
 
 import {reqCategorys} from '../../api'
+import AddForm from './add-form'
+import UpdateFrom from './update-form'
 
 export default class Category extends Component{
 
@@ -96,6 +98,7 @@ export default class Category extends Component{
     }
     addCategory=()=>{
         console.log('addCategory()')
+        
     }
 
     showUpdate=()=>{
@@ -138,7 +141,7 @@ export default class Category extends Component{
                         bordered
                         rowKey='_id'
                         loading={loading}
-                        pagination={{defaultPageSize:5,showQuickJumper:true}} />;
+                        pagination={{defaultPageSize:5,showQuickJumper:true}} />
                 </Card>
 
                 <Modal
@@ -147,8 +150,7 @@ export default class Category extends Component{
                     onOk={this.addCategory}
                     onCancel={this.handleCancel}
                     >
-                    <p>Add</p>
-                    
+                    <AddForm/>
                 </Modal>
 
                 <Modal
@@ -157,7 +159,7 @@ export default class Category extends Component{
                     onOk={this.updateCategory}
                     onCancel={this.handleCancel}
                     >
-                    <p>Update</p>
+                    <UpdateFrom />
                     
                 </Modal>
 
