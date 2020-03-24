@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, Table, Button,message} from 'antd'
+import {Card, Table, Button,message,Modal} from 'antd'
 import {PlusOutlined,ArrowRightOutlined  } from '@ant-design/icons'
 import {LinkButton} from '../../components/link-button'
 
@@ -13,6 +13,7 @@ export default class Category extends Component{
         subCategorys:[],
         parentId:'0',
         parentName:'',
+        showStatus:0,
     }
 
     initColumns=()=>{
@@ -28,7 +29,7 @@ export default class Category extends Component{
                 width:'300px',
                 render: (category) => (
                 <span>
-                    <LinkButton>修改分類</LinkButton>
+                    <LinkButton onClick={this.showUpdate}>修改分類</LinkButton>
                     {this.state.parentId==='0'?<LinkButton onClick={()=>this.showSubCategorys(category)}>查看子分類</LinkButton>:null}
                     
                 </span>)
@@ -51,7 +52,9 @@ export default class Category extends Component{
       }
     showCategorys=()=>{
         this.setState({
-            subCategorys:[],parentId:'0',parentName:''
+            subCategorys:[],
+            parentId:'0',
+            parentName:''
         })
     }
 
@@ -64,26 +67,43 @@ export default class Category extends Component{
         const result = await reqCategorys(parentId)
         // 在请求完成后, 隐藏loading
         this.setState({loading: false})
+
         if(result.status===0) {
             // 取出分类数组(可能是一级也可能二级的)
-        const categorys = result.data
-        if(parentId==='0') {
-            // 更新一级分类状态
-            this.setState({
-            categorys
-            })
-            console.log('----', this.state.categorys.length)
+            const categorys = result.data
+            if(parentId==='0') {
+                // 更新一级分类状态
+                this.setState({
+                categorys
+                })
+                console.log('----', this.state.categorys.length)
+            } else {
+                // 更新二级分类状态
+                this.setState({
+                subCategorys: categorys
+                })
+            }
         } else {
-            // 更新二级分类状态
-            this.setState({
-            subCategorys: categorys
-            })
-        }
-        } else {
-        message.error('获取分类列表失败')
+            message.error('获取分类列表失败')
         }
     }
-    
+    handleCancel=()=>{
+        this.setState({showStatus:0})
+    }
+
+    showAdd=()=>{
+        this.setState({showStatus:1})
+    }
+    addCategory=()=>{
+        console.log('addCategory()')
+    }
+
+    showUpdate=()=>{
+        this.setState({showStatus:2})
+    }
+    updateCategory=()=>{
+        console.log('updateCategory()')
+    }
 
     UNSAFE_componentWillMount(){
         this.initColumns()
@@ -95,7 +115,7 @@ export default class Category extends Component{
 
     render(){
         
-        const {categorys,subCategorys,parentId,parentName,loading} =this.state;
+        const {categorys,subCategorys,parentId,parentName,loading,showStatus} =this.state;
         
 
         const title=parentId==='0'?' 一級分列表':(<span>
@@ -105,7 +125,7 @@ export default class Category extends Component{
             </span>
         )
         const extra =(
-            <Button type='primary'>
+            <Button type='primary' onClick={this.showAdd}>
                 <PlusOutlined/>
                 新增
             </Button>
@@ -120,6 +140,28 @@ export default class Category extends Component{
                         loading={loading}
                         pagination={{defaultPageSize:5,showQuickJumper:true}} />;
                 </Card>
+
+                <Modal
+                    title="新增分類"
+                    visible={showStatus===1}
+                    onOk={this.addCategory}
+                    onCancel={this.handleCancel}
+                    >
+                    <p>Add</p>
+                    
+                </Modal>
+
+                <Modal
+                    title="更新分類"
+                    visible={showStatus===2}
+                    onOk={this.updateCategory}
+                    onCancel={this.handleCancel}
+                    >
+                    <p>Update</p>
+                    
+                </Modal>
+
+
             </div>
            
         )
