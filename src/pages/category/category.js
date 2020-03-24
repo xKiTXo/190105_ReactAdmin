@@ -3,7 +3,7 @@ import {Card, Table, Button,message,Modal} from 'antd'
 import {PlusOutlined,ArrowRightOutlined  } from '@ant-design/icons'
 import {LinkButton} from '../../components/link-button'
 
-import {reqCategorys} from '../../api'
+import {reqCategorys,reqAddCategory,reqUpdateCategory} from '../../api'
 import AddForm from './add-form'
 import UpdateFrom from './update-form'
 
@@ -31,7 +31,7 @@ export default class Category extends Component{
                 width:'300px',
                 render: (category) => (
                 <span>
-                    <LinkButton onClick={this.showUpdate}>修改分類</LinkButton>
+                    <LinkButton onClick={()=>this.showUpdate(category)}>修改分類</LinkButton>
                     {this.state.parentId==='0'?<LinkButton onClick={()=>this.showSubCategorys(category)}>查看子分類</LinkButton>:null}
                     
                 </span>)
@@ -101,11 +101,19 @@ export default class Category extends Component{
         
     }
 
-    showUpdate=()=>{
+    showUpdate=(category)=>{
         this.setState({showStatus:2})
+        this.category=category;
     }
-    updateCategory=()=>{
+    updateCategory=async(categoryName)=>{
         console.log('updateCategory()')
+
+        const categoryId =this.category._id
+        const categoryName=categoryName
+        const result = await reqUpdateCategory({categoryId,categoryName})
+        if(result.status===0){
+           this.getCategorys()
+        }
     }
 
     UNSAFE_componentWillMount(){
@@ -119,7 +127,7 @@ export default class Category extends Component{
     render(){
         
         const {categorys,subCategorys,parentId,parentName,loading,showStatus} =this.state;
-        
+        const category = this.category || {};
 
         const title=parentId==='0'?' 一級分列表':(<span>
                 <LinkButton onClick={this.showCategorys}> 一級分列表</LinkButton>
@@ -159,7 +167,7 @@ export default class Category extends Component{
                     onOk={this.updateCategory}
                     onCancel={this.handleCancel}
                     >
-                    <UpdateFrom />
+                    <UpdateFrom categoryName={category.name?category.name:''}/>
                     
                 </Modal>
 

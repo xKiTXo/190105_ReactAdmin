@@ -11,19 +11,15 @@ const Item = Form.Item;
 
 class UpdateFrom extends Component {
     
-    static state={
-        value:''
-    }
-
     static propTypes={
         categoryName:PropTypes.string.isRequired,
-        setForm:PropTypes.func.isRequired
+       
     }
 
     UNSAFE_componentWillMount(){
         const {categoryName}=this.props
-        this.props.setForm()
-        this.setState({value:categoryName})
+       
+
     }
 
     
@@ -34,10 +30,7 @@ class UpdateFrom extends Component {
         return (
             
             <Form 
-                initialValues={this.state.value}
-                onValuesChange={(categoryName)=>{this.setState({
-                    value:categoryName
-                })}}
+                initialValues={{categoryName:categoryName}}
             >
                 <Item 
                     name='categoryName'
@@ -54,4 +47,4 @@ class UpdateFrom extends Component {
  
 
 
-export default connect (null,null)(UpdateFrom);
+export default UpdateFrom;
