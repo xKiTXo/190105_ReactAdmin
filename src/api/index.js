@@ -12,7 +12,16 @@ export const reqLogin =(username,password)=>ajax(BASE+'/login',{username,passwor
 //Add user
 export const reqAddUser=(user)=>ajax(BASE+'/manage/user/add',user,'POST')
 
-//jsonp 
+//get category list
+export const reqCategorys =(parentId)=>ajax(BASE+'/manage/category/list',{parentId})
+
+//add category item
+export const reqAddCategory =(categoryName,parentId)=>ajax(BASE+'/manage/category/add',{categoryName,parentId},'POST')
+
+//update category item
+export const reqUpdateCategory =({parentId,categoryName})=>ajax(BASE+'/manage/category/update',{parentId,categoryName},'POST')
+
+//weather API
 export const reqWeather =()=>{
     
         const cors = 'https://cors-anywhere.herokuapp.com/';
