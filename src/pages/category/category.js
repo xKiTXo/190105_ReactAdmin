@@ -41,8 +41,8 @@ export default class Category extends Component{
     showSubCategorys = (category) => {
         // 更新状态
         this.setState({
-          parentId: category._id,
-          parentName: category.name
+            parentId: category._id,
+            parentName: category.name
         }, () => { // 在状态更新且重新render()后执行
           console.log('parentId', this.state.parentId) // '0'
           // 获取二级分类列表显示
@@ -86,8 +86,8 @@ export default class Category extends Component{
         }
     }
     handleCancel=()=>{
-        this.setState({showStatus:0})
         this.form.resetFields()
+        this.setState({showStatus:0})
     }
 
     showAdd=()=>{
@@ -95,6 +95,26 @@ export default class Category extends Component{
     }
     addCategory=()=>{
         console.log('addCategory()')
+
+        this.form.validateFields(async(err,values)=>{
+            if(!err){
+                this.setState({showStatus:0})
+        
+                const {parentId,categoryName}=values
+        
+                this.form.resetFields()
+        
+                const result = await reqAddCategory(categoryName,parentId);
+        
+                if(result.status===0){
+                    if(parentId===this.state.parentId){
+                        this.getCategorys()
+                    }else if(parentId==='0'){
+                        this.getCategorys('0')
+                    }
+                }
+            }
+        })
         
     }
 
@@ -102,18 +122,24 @@ export default class Category extends Component{
         this.setState({showStatus:2})
         this.category=category;
     }
-    updateCategory=async()=>{
-        console.log('updateCategory()')
-        this.setState({showStatus:0})
-        const categoryId =this.category._id
-        const categoryName=this.form.getFieldValue('categoryName')
-        console.log(categoryId,' ',categoryName)
-        this.form.resetFields()
-        const result = await reqUpdateCategory({categoryId, categoryName})
-        if (result.status===0) {
-          // 3. 重新显示列表
-          this.getCategorys()
-        }
+    updateCategory=()=>{
+
+        this.form.validateFields(async(err,values)=>{
+            if(!err){
+                    this.setState({showStatus:0})
+
+                    const categoryId =this.category._id
+                    const {categoryName}=values
+
+                    this.form.resetFields()
+                    const result = await reqUpdateCategory({categoryId, categoryName})
+                    if (result.status===0) {
+                    this.getCategorys()
+                }
+            }
+        })
+
+        
     }
 
     UNSAFE_componentWillMount(){
@@ -158,7 +184,9 @@ export default class Category extends Component{
                     onOk={this.addCategory}
                     onCancel={this.handleCancel}
                     >
-                    <AddForm/>
+                    <AddForm categorys={categorys} 
+                        parentId={parentId}
+                        setForm={(form) => {this.form = form}}/>
                 </Modal>
 
                 <Modal

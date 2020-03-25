@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
 import {Form,Select,Input} from 'antd'
-
+import PropTypes from 'prop-types'
 
 const Item = Form.Item;
 const Option = Select.Option;
 
 class AddFrom extends Component {
-    
+    static propTypes={
+        categorys:PropTypes.array.isRequired,
+        parentId:PropTypes.string.isRequired,
+        setForm: PropTypes.func.isRequired,
+    }
 
+    UNSAFE_componentWillMount(){
+        this.props.setForm(this.props.form)
+    }
     render() { 
         const { getFieldDecorator } = this.props.form
+        const {categorys,parentId} =this.props
 
         return (
             <Form>
                 <Item>
                 {
                     getFieldDecorator('parentId', {
-                    initialValue: '0'
+                    initialValue: parentId
                     })(
                     <Select>
-                        <Option value='0'>一级分类</Option>
-                        
+                        <Option key='0'>一级分类</Option>
+                        {categorys.map(item=><Option key={item._id}>{item.name}</Option>)}
                     </Select>
                     )
                 }
