@@ -9,27 +9,39 @@ class AddFrom extends Component {
     
 
     render() { 
-        
+        const { getFieldDecorator } = this.props.form
+
         return (
             <Form>
-                <Item >
-                    <Select defaultValue='0'>
-                        <Option value='0'>一級分類</Option>
-                        <Option value='1'>電腦</Option>
-                        <Option value='2'>圖書</Option>
+                <Item>
+                {
+                    getFieldDecorator('parentId', {
+                    initialValue: '0'
+                    })(
+                    <Select>
+                        <Option value='0'>一级分类</Option>
+                        
                     </Select>
+                    )
+                }
+
                 </Item>
 
-                <Item 
-                    rules={[
-                        { required: true, message: '請輸入分類名!' }
-                    ]}>
-                    <Input placeholder='請輸入分類名'/>
+                <Item>
+                {
+                    getFieldDecorator('categoryName', {
+                    initialValue: '',
+                    rules: [
+                        {required: true, message: '分类名称必须输入'}
+                    ]
+                    })(
+                    <Input placeholder='请输入分类名称'/>
+                    )
+                }
                 </Item>
-                
             </Form>
         );
     }
 }
  
-export default AddFrom;
+export default Form.create()(AddFrom);

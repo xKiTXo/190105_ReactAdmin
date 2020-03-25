@@ -75,15 +75,11 @@ export default class Category extends Component{
             const categorys = result.data
             if(parentId==='0') {
                 // 更新一级分类状态
-                this.setState({
-                categorys
-                })
+                this.setState({categorys})
                 console.log('----', this.state.categorys.length)
             } else {
                 // 更新二级分类状态
-                this.setState({
-                subCategorys: categorys
-                })
+                this.setState({subCategorys: categorys})
             }
         } else {
             message.error('获取分类列表失败')
@@ -133,7 +129,6 @@ export default class Category extends Component{
 
         const title=parentId==='0'?' 一級分列表':(<span>
                 <LinkButton onClick={this.showCategorys}> 一級分列表</LinkButton>
-                {/* <ArrowRightOutlined style={{marginRight:'5px'}}/> */}
                 <Icon type='arrow-right' style={{marginRight: 5}}/>
                 <span>{parentName}</span>
             </span>
