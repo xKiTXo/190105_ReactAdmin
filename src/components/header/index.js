@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {ExclamationCircleOutlined} from '@ant-design/icons'
+
 import { Modal } from 'antd';
 
 import './index.less'

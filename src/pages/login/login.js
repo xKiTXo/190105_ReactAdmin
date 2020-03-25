@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, message,Icon} from 'antd';
-import {UserOutlined,LockOutlined  } from '@ant-design/icons';
+
 
 import {reqLogin} from '../../api'
 import memoryUtils from '../../utils/memoryUtils'

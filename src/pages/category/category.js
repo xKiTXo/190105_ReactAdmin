@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Card, Table, Button,message,Modal,Icon} from 'antd'
-import {PlusOutlined,ArrowRightOutlined  } from '@ant-design/icons'
+
 import {LinkButton} from '../../components/link-button'
 
 import {reqCategorys,reqAddCategory,reqUpdateCategory} from '../../api'
@@ -87,6 +87,7 @@ export default class Category extends Component{
     }
     handleCancel=()=>{
         this.setState({showStatus:0})
+        this.form.resetFields()
     }
 
     showAdd=()=>{
@@ -103,14 +104,15 @@ export default class Category extends Component{
     }
     updateCategory=async()=>{
         console.log('updateCategory()')
-
+        this.setState({showStatus:0})
         const categoryId =this.category._id
         const categoryName=this.form.getFieldValue('categoryName')
+        console.log(categoryId,' ',categoryName)
         this.form.resetFields()
-        const result = await reqUpdateCategory({categoryId,categoryName})
-
-        if(result.status===0){
-           this.getCategorys()
+        const result = await reqUpdateCategory({categoryId, categoryName})
+        if (result.status===0) {
+          // 3. 重新显示列表
+          this.getCategorys()
         }
     }
 
@@ -165,8 +167,8 @@ export default class Category extends Component{
                     onOk={this.updateCategory}
                     onCancel={this.handleCancel}
                     >
-                    <UpdateFrom categoryName={category.name?category.name:''}
-                    setForm={(form) => {this.form = form}}/>
+                    <UpdateFrom categoryName={category.name}
+                        setForm={(form) => {this.form = form}}/>
                     
                 </Modal>
 

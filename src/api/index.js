@@ -19,7 +19,7 @@ export const reqCategorys =(parentId)=>ajax(BASE+'/manage/category/list',{parent
 export const reqAddCategory =(categoryName,parentId)=>ajax(BASE+'/manage/category/add',{categoryName,parentId},'POST')
 
 //update category item
-export const reqUpdateCategory =({parentId,categoryName})=>ajax(BASE+'/manage/category/update',{parentId,categoryName},'POST')
+export const reqUpdateCategory =({categoryId,categoryName})=>ajax(BASE+'/manage/category/update',{categoryId,categoryName},'POST')
 
 //weather API
 export const reqWeather =()=>{
