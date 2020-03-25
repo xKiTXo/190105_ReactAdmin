@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, Table, Button,message,Modal} from 'antd'
+import {Card, Table, Button,message,Modal,Icon} from 'antd'
 import {PlusOutlined,ArrowRightOutlined  } from '@ant-design/icons'
 import {LinkButton} from '../../components/link-button'
 
@@ -105,12 +105,14 @@ export default class Category extends Component{
         this.setState({showStatus:2})
         this.category=category;
     }
-    updateCategory=async(categoryName)=>{
+    updateCategory=async()=>{
         console.log('updateCategory()')
 
         const categoryId =this.category._id
-        const categoryName=categoryName
+        const categoryName=this.form.getFieldValue('categoryName')
+        this.form.resetFields()
         const result = await reqUpdateCategory({categoryId,categoryName})
+
         if(result.status===0){
            this.getCategorys()
         }
@@ -131,13 +133,14 @@ export default class Category extends Component{
 
         const title=parentId==='0'?' 一級分列表':(<span>
                 <LinkButton onClick={this.showCategorys}> 一級分列表</LinkButton>
-                <ArrowRightOutlined style={{marginRight:'5px'}}/>
+                {/* <ArrowRightOutlined style={{marginRight:'5px'}}/> */}
+                <Icon type='arrow-right' style={{marginRight: 5}}/>
                 <span>{parentName}</span>
             </span>
         )
         const extra =(
             <Button type='primary' onClick={this.showAdd}>
-                <PlusOutlined/>
+                <Icon type='plus'/>
                 新增
             </Button>
         )
@@ -167,7 +170,8 @@ export default class Category extends Component{
                     onOk={this.updateCategory}
                     onCancel={this.handleCancel}
                     >
-                    <UpdateFrom categoryName={category.name?category.name:''}/>
+                    <UpdateFrom categoryName={category.name?category.name:''}
+                    setForm={(form) => {this.form = form}}/>
                     
                 </Modal>
 

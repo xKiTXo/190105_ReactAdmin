@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link ,withRouter} from 'react-router-dom'
 
-import { Menu } from 'antd';
+import { Menu,Icon } from 'antd';
 
 import menuList from '../../config/menuConfig'
 
@@ -19,7 +19,7 @@ class LeftNav extends Component{
                     return(
                         <Menu.Item key={item.key}>
                             <Link to={item.key}>
-                                <item.icon/>
+                            <Icon type={item.icon}/>
                                 <span>{item.title}</span>
                             </Link>
                         </Menu.Item>
@@ -48,7 +48,7 @@ class LeftNav extends Component{
                 if(!item.children){
                     pre.push((<Menu.Item key={item.key}>
                         <Link to={item.key}>
-                            <item.icon/>
+                        <Icon type={item.icon}/>
                             <span>{item.title}</span>
                         </Link>
                     </Menu.Item>))

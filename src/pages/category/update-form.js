@@ -13,38 +13,39 @@ class UpdateFrom extends Component {
     
     static propTypes={
         categoryName:PropTypes.string.isRequired,
-       
+        setForm: PropTypes.func.isRequired
     }
 
     UNSAFE_componentWillMount(){
-        const {categoryName}=this.props
-       
+        this.props.setForm(this.props.form)
 
     }
 
     
     render() {   
         const {categoryName}=this.props
-        console.log(categoryName)
+        const { getFieldDecorator } = this.props.form
         
         return (
             
-            <Form 
-                initialValues={{categoryName:categoryName}}
-            >
-                <Item 
-                    name='categoryName'
-                    rules={[
-                        { required: true, message: '請輸入分類名!' }
-                    ]}>
-                    <Input placeholder='請輸入分類名'  />
-                </Item>
-                
-            </Form>
+            <Form>
+            <Item>
+              {
+               getFieldDecorator('categoryName', {
+                  initialValue: categoryName,
+                  rules: [
+                    {required: true, message: '分类名称必须输入'}
+                  ]
+                })(
+                  <Input placeholder='请输入分类名称'/>
+                )
+              }
+            </Item>
+          </Form>
         );
     }
 }
  
 
 
-export default UpdateFrom;
+export default Form.create()(UpdateFrom);

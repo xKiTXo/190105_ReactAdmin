@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, message} from 'antd';
+import { Form, Input, Button, message,Icon} from 'antd';
 import {UserOutlined,LockOutlined  } from '@ant-design/icons';
 
 import {reqLogin} from '../../api'
@@ -86,7 +86,8 @@ class Login extends Component{
                                 {pattern: /^[a-zA-Z0-9_]+$/,message:'用戶名必需是英文,數字,_'}
                             ]}
                         >
-                            <Input placeholder='用戶名' prefix={<UserOutlined/>}/>
+                            <Input placeholder='用戶名' prefix={<Icon type='user'/>}/>
+                           
                         </Item>
 
                         <Form.Item
@@ -95,7 +96,7 @@ class Login extends Component{
                                 {validator:this.validatePwd}
                             ]}
                         >
-                            <Input.Password placeholder='密碼' prefix={<LockOutlined />}/>
+                            <Input.Password placeholder='密碼' prefix={<Icon type='lock'/>}/>
                         </Form.Item>
 
                         <Form.Item >

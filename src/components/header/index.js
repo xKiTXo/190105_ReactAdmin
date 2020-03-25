@@ -50,7 +50,7 @@ class Header extends Component{
     logout=()=>{
        
         Modal.confirm({
-            icon: <ExclamationCircleOutlined />,
+           
             content: '確定退出嗎?',
             onOk:()=> {
                 console.log('logout',this)
